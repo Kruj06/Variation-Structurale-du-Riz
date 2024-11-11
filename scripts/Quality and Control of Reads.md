@@ -10,6 +10,7 @@
 - **qc/** : Quality control results.
 - **fastqc/** : Quality control results.
 - **multiqc/** : Quality control results.
+- **cleaning/** : to eliminate poor quality bases
 
 ##  FASTQC
 
@@ -92,6 +93,9 @@ ls -lh
 ```
 
 ### Use generated html files to check read quality
+
+## CLEANING
+
 
 
 
