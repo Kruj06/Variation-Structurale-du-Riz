@@ -11,7 +11,7 @@
 - **fastqc/** : Quality control results.
 - **multiqc/** : Quality control results.
 - **cleaning/** : to eliminate poor quality bases and adapters if used
-- ** mapping/** : to align reads on the reference genome
+- **mapping/** : to align reads on the reference genome
 
 ##  FASTQC
 
@@ -98,14 +98,85 @@ ls -lh
 ## CLEANING
 
 ### cleaning depends on multiqc results
+
 ## MAPPING
+
 ### indexing of the reference genome
 
+## Create a “ref” directory in the working directory in which reference genome will be stored
 
+```bash
+mkdir -p /home/rkouke/Projet_Riz/ref
+```
+## Move to the “ref” directory
 
+```bash
+cd /home/rkouke/Project_Riz/ref
+```
+## download reference genome
+### ncbi-datasets-cli module loading
 
+```bash
+module load ncbi-datasets-cli/16.27.2
+```
+## download launch 
+```bash
+datasets download genome GCF_000147395.1 --include gff3,rna,cds,protein,genome,seq-report
+```
+### Check download 
 
+```bash
+ls -lh ncbi_dataset.zip
+```
+### decompress the ZIP file
 
+```bash
+unzip ncbi_dataset.zip
+```
+
+### REFseq indexation
+### check the path (be in the directory which contains the reference genome)
+
+```bash
+pwd
+```
+## load mapping modules
+
+```bash
+module load bwa-mem2/2.2.1
+```
+ ### Display the help menu for the bwa-mem2 command
+
+```bash
+bwa-mem2 --help
+```
+## run indexing
+
+```bash
+bwa index reference_genome.fasta
+```
+
+### Check content
+
+```bash
+ls 
+```
+
+## Create a “mapping” directory in the working directory in which mapping results will be stored
+
+```bash
+mkdir -p /home/rkouke/Projet_Riz/mapping
+```
+## Move to the “mapping” directory
+
+```bash
+cd /home/rkouke/Project_Riz/mapping
+```
+## run a mapping test on one of the samples
+
+```bash
+bwa-mem2 mem reference_genome.fasta path_sample.R1.reads.fastq.gz path_sample.R2.reads.fastq.gz -t 8 -o sample.sam
+```
 
 
 
