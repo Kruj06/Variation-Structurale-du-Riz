@@ -8,7 +8,8 @@
 - **01.RawData/** : Raw sequencing data.
 - **metadata/** : Sample information and morphological data 
 - **qc/** : Quality control results.
-
+- **fastqc/** : Quality control results.
+- **multiqc/** : Quality control results.
 
 ##  FASTQC
 
