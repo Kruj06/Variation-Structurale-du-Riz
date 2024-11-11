@@ -65,13 +65,13 @@ ls -lh
 ## Create the “multiqc” directory for outputs 
 
 ```bash
-mkdir -p /shared/home/$USER/Projet_SNP/qc/multiqc
+mkdir -p /home/rkouke/Projet_Riz/qc/multiqc
 ```
 
 ## Move to the “fastqc” directory
 
 ```bash
-cd /shared/home/$USER/Projet_SNP/qc/multiqc
+cd /home/rkouke/Projet_Riz/qc/multiqc
 ```
 
 ## Load multiqc module to compress fastqc reports into a single report
@@ -83,7 +83,7 @@ module load multiqc/1.13
 ## Launch analysis
 
 ```bash
-multiqc /shared/home/$USER/Projet_SNP/qc/fastqc/ -o /shared/home/$USER/Projet_SNP/qc/multiqc
+multiqc /home/rkouke/Projet_Riz/qc/fastqc -o /home/rkouke/Projet_Riz/qc/multiqc
 ```
 
 ### Check content
