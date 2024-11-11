@@ -1,4 +1,15 @@
+```bash 
+
 ## Create a “qc” directory in the working directory in which quality control results will be stored.
-```mkdir -p /home/rkouke/Project_Riz/qc```
+mkdir -p /home/rkouke/Project_Riz/qc
 
 
+```bash
+# Liste tous les fichiers dans le répertoire courant
+ls -lh
+
+# Affiche la taille d'un dossier
+du -sh /home/user/data/
+
+# Copie récursive d'un dossier
+cp -r /home/user/source /home/user/destination
