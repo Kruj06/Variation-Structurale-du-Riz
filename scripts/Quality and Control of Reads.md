@@ -148,7 +148,7 @@ module load bwa-mem2/2.2.1
  ### Display the help menu for the bwa-mem2 command
 
 ```bash
-bwa-mem2 --help
+bwa-mem2 
 ```
 ## run indexing
 
