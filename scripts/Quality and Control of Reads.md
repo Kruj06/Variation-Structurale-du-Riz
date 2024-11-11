@@ -10,7 +10,8 @@
 - **qc/** : Quality control results.
 - **fastqc/** : Quality control results.
 - **multiqc/** : Quality control results.
-- **cleaning/** : to eliminate poor quality bases
+- **cleaning/** : to eliminate poor quality bases and adapters if used
+- ** mapping/** : to align reads on the reference genome
 
 ##  FASTQC
 
@@ -95,6 +96,11 @@ ls -lh
 ### Use generated html files to check read quality
 
 ## CLEANING
+
+### cleaning depends on multiqc results
+## MAPPING
+### indexing of the reference genome
+
 
 
 
