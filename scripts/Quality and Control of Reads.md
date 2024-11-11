@@ -1,20 +1,16 @@
-```bash
-## Create a “qc” directory in the working directory in which quality control results will be stored.
+
 # Project Riz
 
-Ce projet porte sur l'analyse de la diversité génétique du riz après irradiation.
+## This project focuses on the analysis of genetic diversity in rice after irradiation.
 
-## Structure du projet
+## Folder structure
 
-- **01.RawData/** : Données brutes de séquençage.
-- **qc/** : Résultats du contrôle qualité.
-- **metadata/** : Informations sur les échantillons.
+- **01.RawData/** : Raw sequencing data.
+- **metadata/** : Sample information and morphological data 
+- **qc/** : Quality control results.
 
-## Exemple de commande
-
+## Create a “qc” directory in the working directory in which quality control results will be stored.
 ```bash
-# Créer un dossier pour le contrôle qualité
-mkdir -p qc
+# mkdir -p /home/rkouke/Project_Riz/qc
 
-# Lister les fichiers dans le répertoire de données brutes
-ls -lh 01.RawData/
+
