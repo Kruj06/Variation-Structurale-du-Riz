@@ -10,24 +10,24 @@
 - **qc/** : Quality control results.
 
 ## Create a “qc” directory in the working directory in which quality control results will be stored.
+
 ```bash
 mkdir -p /home/rkouke/Project_Riz/qc
-
-```markdown
+```
 # Move to qc directory
 
 ```bash
 cd /home/rkouke/Project_Riz/qc
+```
 
-```markdown
-
-## Créer le répertoire "fastqc" pour les outputs 
+## Create the “fastqc” directory for outputs
 
 ```bash
 mkdir fastqc
+```
 
-```markdown
-## Se déplacer dans le répertoire "fastqc"
+## Move to "fastqc" directory
 
 ```bash
 cd fastqc
+```
