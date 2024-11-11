@@ -68,7 +68,7 @@ ls -lh
 mkdir -p /home/rkouke/Projet_Riz/qc/multiqc
 ```
 
-## Move to the “fastqc” directory
+## Move to the “multiqc” directory
 
 ```bash
 cd /home/rkouke/Projet_Riz/qc/multiqc
