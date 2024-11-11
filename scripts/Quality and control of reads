@@ -1,1 +1,3 @@
+## Create a “qc” directory in the working directory in which quality control results will be stored.
+mkdir /home/rkouke/qc 
 
