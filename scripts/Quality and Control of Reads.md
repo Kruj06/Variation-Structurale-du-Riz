@@ -1,33 +1,113 @@
 
 # Project Riz
 
-## This project focuses on the analysis of genetic diversity in rice after irradiation.
+### This project focuses on the analysis of genetic diversity in rice after irradiation.
 
-## Folder structure
+### Folder structure
 
 - **01.RawData/** : Raw sequencing data.
 - **metadata/** : Sample information and morphological data 
 - **qc/** : Quality control results.
 
-## Create a “qc” directory in the working directory in which quality control results will be stored.
+
+##  FASTQC
+
+### Create a “qc” directory in the working directory in which quality control results will be stored.
 
 ```bash
 mkdir -p /home/rkouke/Project_Riz/qc
 ```
-# Move to qc directory
+### Move to qc directory
 
 ```bash
 cd /home/rkouke/Project_Riz/qc
 ```
 
-## Create the “fastqc” directory for outputs
+### Create the “fastqc” directory for outputs
 
 ```bash
 mkdir fastqc
 ```
 
-## Move to "fastqc" directory
+### Move to "fastqc" directory
 
 ```bash
 cd fastqc
 ```
+
+### Load the “fastqc” module, taking the version into account
+
+```bash
+module load fastqc/0.12.1
+```
+### Display the help menu for the fastqc command
+
+```bash
+fastqc --help
+```
+
+### Run quality control command on fastq.gz sequencing data
+
+```bash
+fastqc /home/rkouke/01.RawData/*.fastq.gz -o /home/rkouke/Projet_Riz/qc/fastqc
+```
+
+### Check content
+```bash
+ls -lh
+```
+
+### Use generated html files to check read quality 
+
+##  MULTIQC
+
+## Create the “multiqc” directory for outputs 
+
+```bash
+mkdir -p /shared/home/$USER/Projet_SNP/qc/multiqc
+```
+
+## Move to the “fastqc” directory
+
+```bash
+cd /shared/home/$USER/Projet_SNP/qc/multiqc
+```
+
+## Load multiqc module to compress fastqc reports into a single report
+
+```bash
+module load multiqc/1.13
+```
+
+## Launch analysis
+
+```bash
+multiqc /shared/home/$USER/Projet_SNP/qc/fastqc/ -o /shared/home/$USER/Projet_SNP/qc/multiqc
+```
+
+### Check content
+```bash
+ls -lh
+```
+
+### Use generated html files to check read quality
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
