@@ -103,7 +103,7 @@ ls -lh
 
 ### indexing of the reference genome
 
-## Create a “ref” directory in the working directory in which reference genome will be stored
+### Create a “ref” directory in the working directory in which reference genome will be stored
 
 ```bash
 mkdir -p /home/rkouke/Projet_Riz/ref
