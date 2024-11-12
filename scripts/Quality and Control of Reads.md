@@ -88,7 +88,7 @@ module load multiqc/1.13
 multiqc /home/rkouke/Projet_Riz/qc/fastqc -o /home/rkouke/Projet_Riz/qc/multiqc
 ```
 
-### Check content
+#### Check content
 ```bash
 ls -lh
 ```
@@ -97,7 +97,7 @@ ls -lh
 
 ## CLEANING
 
-### cleaning depends on multiqc results
+#### cleaning depends on multiqc results
 
 ## MAPPING
 
@@ -135,7 +135,7 @@ unzip ncbi_dataset.zip
 ```
 
 ### REFseq indexation
-### check the path (be in the directory which contains the reference genome)
+#### check the path (be in the directory which contains the reference genome)
 
 ```bash
 pwd
@@ -156,7 +156,7 @@ bwa-mem2
 bwa index reference_genome.fasta
 ```
 
-### Check content
+#### Check content
 
 ```bash
 ls 
@@ -193,14 +193,14 @@ samtools view -b -o sample.bam sample.sam
 ```bash
 samtools flagstat sample.bam > sample.flagstat.txt
 ```
-### view the file generated
+#### view the file generated
 
 ```bash
 cat sample.flagstat.txt 
 ```
 ### Extract reads mapped to the reference genome using samtools view
 
-### Display the help menu for the samtools view command
+#### Display the help menu for the samtools view command
 
 ```bash
 samtooms view --help
@@ -219,7 +219,7 @@ samtools flagstat sample.mapped_paired.bam
 ```bash
 samtools sort sample.mapped_paired.bam -o sample.mapped_paired.sorted.bam --threads 8
 ```
-### Check content
+#### Check content
 
 ```bash
 ls -lh sample.*
@@ -230,7 +230,7 @@ ls -lh sample.*
 ```bash
 samtools index sample.mapped_paired.sorted.bam
 ```
-### Check content
+#### Check content
 
 ```bash
 ls -lrt sample.*
