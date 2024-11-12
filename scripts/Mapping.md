@@ -1,4 +1,9 @@
-# Mapping
+# Mapping 
+- **mapping /** : to align reads on the reference genome
+- **mapping test/**: run a mapping test on one of the samples
+- **mapping/** : run mapping on all samples using the for loop
+
+  # Mapping test
 
 #### indexing of the reference genome
 
