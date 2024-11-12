@@ -1,3 +1,4 @@
+# Folder structure
 # Mapping 
 - **mapping /** : to align reads on the reference genome
 - **mapping test/**: run a mapping test on one of the samples
