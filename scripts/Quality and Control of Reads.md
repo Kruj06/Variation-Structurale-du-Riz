@@ -11,7 +11,7 @@
 - **fastqc/** : Quality control results.
 - **multiqc/** : Quality control results.
 - **cleaning/** : to eliminate poor quality bases and adapters if used
-- **mapping/** : to align reads on the reference genome
+- **mapping test/** : to align reads on the reference genome
 
 ##  FASTQC
 
