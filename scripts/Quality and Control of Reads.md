@@ -178,17 +178,63 @@ cd /home/rkouke/Project_Riz/mapping
 bwa-mem2 mem reference_genome.fasta path_sample.R1.reads.fastq.gz path_sample.R2.reads.fastq.gz -t 8 -o sample.sam
 ```
 
+## Convert sam file to bam with samtools view
+###  load samtools modules
 
+```bash
+module load samtools/1.18 
+```
 
+```bash
+samtools view -b -o sample.bam sample.sam 
+```
+## Mapping statistics with samtools flagstat
 
+```bash
+samtools flagstat sample.bam > sample.flagstat.txt
+```
+## view the file generated
 
+```bash
+cat sample.flagstat.txt 
+```
+## Extract reads mapped to the reference genome using samtools view
 
+### Display the help menu for the samtools view command
 
+```bash
+samtooms view --help
+```
+## run extraction
+```bash
+samtools view -f 3 --threads 8 -h -b sample.bam -o sample.mapped_paired.bam
+```
+## view stats
 
+```bash
+samtools flagstat sample.mapped_paired.bam
+```
+## sort the Bam file
 
+```bash
+samtools sort sample.mapped_paired.bam -o sample.mapped_paired.sorted.bam --threads 8
+```
+### Check content
 
+```bash
+ls -lh sample.*
+```
 
+## Indexing bam file
 
+```bash
+samtools index sample.mapped_paired.sorted.bam
+```
+### Check content
+
+```bash
+ls -lrt sample.*
+```
 
 
 
