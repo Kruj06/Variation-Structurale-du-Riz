@@ -43,7 +43,7 @@ cd fastqc
 ```bash
 module load fastqc/0.12.1
 ```
-### Display the help menu for the fastqc command
+#### Display the help menu for the fastqc command
 
 ```bash
 fastqc --help
@@ -145,7 +145,7 @@ pwd
 ```bash
 module load bwa-mem2/2.2.1
 ```
- ### Display the help menu for the bwa-mem2 command
+ #### Display the help menu for the bwa-mem2 command
 
 ```bash
 bwa-mem2 
