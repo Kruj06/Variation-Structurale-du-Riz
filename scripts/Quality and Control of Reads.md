@@ -14,7 +14,7 @@
 
 ##  FASTQC
 
-#### Create a “qc” directory in the working directory in which quality control results will be stored.
+#### Create a qc/ directory in the working directory in which quality control results will be stored.
 
 ```bash
 mkdir -p /home/rkouke/Project_Riz/qc
@@ -25,19 +25,19 @@ mkdir -p /home/rkouke/Project_Riz/qc
 cd /home/rkouke/Project_Riz/qc
 ```
 
-#### Create the “fastqc” directory for outputs
+#### Create the fastqc/ directory for outputs
 
 ```bash
 mkdir fastqc
 ```
 
-#### Move to "fastqc" directory
+#### Move to fastqc/ directory
 
 ```bash
 cd fastqc
 ```
 
-#### Load the “fastqc” module, taking the version into account
+#### Load the fastqc/ module, taking the version into account
 
 ```bash
 module load fastqc/0.12.1
@@ -63,13 +63,13 @@ ls -lh
 
 ##  MULTIQC
 
-#### Create the “multiqc” directory for outputs 
+#### Create the multiqc/ directory for outputs 
 
 ```bash
 mkdir -p /home/rkouke/Projet_Riz/qc/multiqc
 ```
 
-#### Move to the “multiqc” directory
+#### Move to the multiqc/ directory
 
 ```bash
 cd /home/rkouke/Projet_Riz/qc/multiqc
