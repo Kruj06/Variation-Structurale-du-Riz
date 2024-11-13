@@ -141,3 +141,11 @@ samtools index sample.mapped_paired.sorted.bam
 ls -lrt sample.*
 ```
 
+## Mapping
+
+#### Faire une boucle pour tous les échantillons
+
+
+
+
+
