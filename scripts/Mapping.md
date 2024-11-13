@@ -8,12 +8,12 @@
 
 #### indexing of the reference genome
 
-#### Create a “ref” directory in the working directory in which reference genome will be stored
+#### Create a ref directory in the working directory in which reference genome will be stored
 
 ```bash
 mkdir -p /home/rkouke/Projet_Riz/ref
 ```
-#### Move to the “ref” directory
+#### Move to the ref directory
 
 ```bash
 cd /home/rkouke/Project_Riz/ref
@@ -67,12 +67,12 @@ bwa index reference_genome.fasta
 ls 
 ```
 
-#### Create a “mapping” directory in the working directory in which mapping results will be stored
+#### Create a mapping/ directory in the working directory in which mapping results will be stored
 
 ```bash
 mkdir -p /home/rkouke/Projet_Riz/mapping
 ```
-#### Move to the “mapping” directory
+#### Move to the mapping/ directory
 
 ```bash
 cd /home/rkouke/Project_Riz/mapping
