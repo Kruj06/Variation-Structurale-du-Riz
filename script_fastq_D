@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH -p main
+#SBATCH --job-name=fastqc_job
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=24G
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+
+# Charger le module nécessaire
+module load FastQC/0.11.9
+
+# Créer le répertoire de travail sur /scratch
+mkdir -p /scratch/$USER/FASTQCD
+
+# Lancer l'analyse avec fastqc
+find /projects/large/CIBIG_rice/01.RawData/D*/ -type f -name "*fq.gz" -exec fastqc {} -o /scratch/$USER/FASTQCD \;
+
+# Copier les résultats dans le répertoire personnel sur le master
+cp -r /scratch/$USER/FASTQCD /home/$USER/Resultats/
+
+
