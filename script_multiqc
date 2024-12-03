@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH -p main
+#SBATCH --job-name=multiqc_job
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=24G
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+
+# Charger le module nécessaire
+module load multiqc/1.9
+
+# Créer le répertoire de travail sur /scratch
+mkdir -p /scratch/$USER/multiqc
+
+# Lancer l'analyse avec fastqc
+multiqc /home/$USER/Resultats/FASTQC/ -o /scratch/$USER/multiqc
+
+# Copier les résultats dans le répertoire personnel sur le master
+cp -r /scratch/$USER/multiqc /home/$USER/Resultats/
+
+# Supprimer le répertoire de travail pour libérer de l'espace
+rm -rf /scratch/$USER/multiqc
