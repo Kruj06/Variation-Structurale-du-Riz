@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH -p main
+#SBATCH --job-name=multiqc_job
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=24G
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+
+# Charger le module nécessaire
+module load multiqc/1.9
+
+#lancer l'analyse avec fastqc
+multiqc /home/$USER/Resultats/FASTQC/ -o /home/$USER/Resultats/FASTQC
