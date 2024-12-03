@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p main
+#SBATCH -p normal
 #SBATCH --job-name=multiqc_job
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
