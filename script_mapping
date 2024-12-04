@@ -1,0 +1,46 @@
+#!/bin/bash
+#!/bin/bash
+#SBATCH -p normal
+#SBATCH --job-name=mapping_job
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=24G
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+
+# chargernle module bwam-m2
+module load singularity/4.0.1
+module load bwamem2/2.2.1
+# Définir les variables
+GENOME_DIR="/home/amuri/mapping/ref/GCF_000147395.1_OglaRS2_genomic.fna.gz"                    # Répertoire où les index BWA sont stockés
+RAW_DATA_DIR="/projects/large/CIBIG_rice/01.RawData/A*"  # Répertoire contenant les fichiers .fq.gz
+OUTPUT_DIR="/scratch/amuri/mapping_resultats"      # Répertoire où stocker temporairement les résultats de mapping
+RESULTS_DIR="/home/$USER/mapping_resultats"             # Répertoire où stocker les résultats de mapping dans votre espace personnel
+
+# Créer le répertoire de sortie s'il n'existe pas déjà
+mkdir -p "$OUTPUT_DIR"
+
+
+# Utiliser find pour rechercher tous les fichiers *_1.fq.gz dans les sous-répertoires de A
+
+for FILE1 in $(find $RAW_DATA_DIR -type f -name "*_1.fq.gz"); do
+    
+    # Récupérer le fichier pair correspondant pour chaque fichier 1
+    
+    FILE2="${FILE1/_1.fq.gz/_2.fq.gz}"
+
+    # Vérifiez que le fichier pair existe
+    if [ -f "$FILE2" ]; then
+        echo "Mapping des fichiers: $FILE1 et $FILE2"
+
+        # Utiliser bwa-mem2 pour mapper les fichiers et rediriger la sortie vers le répertoire OUTPUT_DIR
+        bwa-mem2 mem $GENOME_DIR $FILE1 $FILE2 -t 12 -o $OUTPUT_DIR/$(basename "$FILE1" .fq.gz).sam
+    else
+        echo "Fichier pair pour $FILE1 non trouvé. Passer au suivant."
+    fi
+done
+# Copier les résultats dans le répertoire personnel sur le master
+cp -r /scratch/amuri/mapping_resultats /home/$USER/Resultats/
+
+# Supprimer le répertoire de travail pour libérer de l'espace dans le scratch
+rm -rf /scratch/amuri/mapping_resultats
