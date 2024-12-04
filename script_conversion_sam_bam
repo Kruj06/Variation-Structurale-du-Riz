@@ -1,0 +1,92 @@
+#!/bin/bash
+
+#SBATCH -p normal                      # Partition
+#SBATCH --job-name=samtools_job         # Nom du job
+#SBATCH --ntasks=1                      # Nombre de tâches
+#SBATCH --cpus-per-task=12               # Nombre de CPU par tâche
+#SBATCH --mem=24G                        # Mémoire allouée
+#SBATCH --output=%x_%j.out               # Fichier de sortie
+#SBATCH --error=%x_%j.err                # Fichier d'erreurs
+#SBATCH --tmp=50G                        # Espace temporaire scratch (si nécessaire)
+
+# Charger le module samtools
+module load samtools/1.19.2
+
+# Répertoire personnel pour stocker les résultats
+BASE_PERSONAL="/home/amuri/Resultats"
+
+# Créer un répertoire scratch temporaire pour le traitement
+SCRATCH_DIR="/scratch/$USER/job_$SLURM_JOB_ID"
+mkdir -p "$SCRATCH_DIR"
+
+# Répertoires où stocker les fichiers SAM/BAM/Statistiques dans l'espace personnel
+BASE_SAM="$BASE_PERSONAL/mapping_resultats_C"
+BASE_STATS="$BASE_PERSONAL/mapping_resultats_C/stats_sam"
+BASE_MAPPED="$BASE_PERSONAL/mapping_resultats_C/mapped_reads"
+BASE_SORTED="$BASE_PERSONAL/mapping_resultats_C/sorted_bam"
+BASE_PAIRED="$BASE_PERSONAL/mapping_resultats_C/paired_reads"
+
+# Créer les répertoires nécessaires dans l'espace personnel, si non existants
+mkdir -p "$BASE_STATS"
+mkdir -p "$BASE_MAPPED"
+mkdir -p "$BASE_SORTED"
+mkdir -p "$BASE_PAIRED"
+
+# Se déplacer dans le répertoire scratch pour le traitement des fichiers
+cd "$SCRATCH_DIR" || { echo "Répertoire scratch non accessible!"; exit 1; }
+
+# Copier les fichiers SAM depuis l'espace personnel vers le répertoire scratch
+cp "$BASE_SAM"/*.sam "$SCRATCH_DIR"
+
+# Traiter chaque fichier SAM dans le répertoire scratch
+for fichier_sam in "$SCRATCH_DIR"/*.sam; do
+    if [[ -f "$fichier_sam" ]]; then
+        # Convertir le fichier .sam en .bam dans le répertoire scratch
+        fichier_bam="${fichier_sam%.sam}.bam"
+        samtools view -Sb "$fichier_sam" > "$fichier_bam"
+        echo "Conversion de $fichier_sam en $fichier_bam terminée."
+
+        # Générer les statistiques avec samtools flagstat pour le fichier BAM
+        fichier_stats="${fichier_bam%.bam}.flagstat.txt"
+        samtools flagstat "$fichier_bam" > "$fichier_stats"
+        echo "Statistiques générées pour $fichier_bam."
+
+        # Extraire les reads appariés et mappés (paired and mapped reads)
+        fichier_bam_paired="${fichier_bam%.bam}.mapped_paired.bam"
+        samtools view -b -f 3 "$fichier_bam" > "$fichier_bam_paired"  # -f 3: sélectionne les reads appariés mappés
+        echo "Extraction des reads appariés mappés terminée pour $fichier_bam."
+
+        # Générer les statistiques pour le fichier BAM apparié
+        fichier_stats_paired="${fichier_bam_paired%.bam}.flagstat.txt"
+        samtools flagstat "$fichier_bam_paired" > "$fichier_stats_paired"
+        echo "Statistiques générées pour les reads appariés mappés de $fichier_bam."
+
+        # Trier le fichier BAM apparié
+        fichier_bam_paired_trie="${fichier_bam_paired%.bam}.sorted.bam"
+        samtools sort "$fichier_bam_paired" -o "$fichier_bam_paired_trie"
+        echo "Tri du fichier BAM apparié terminé. Fichier trié : $fichier_bam_paired_trie."
+
+        # Indexer le fichier BAM apparié trié
+        samtools index "$fichier_bam_paired_trie"
+        echo "Indexation du fichier BAM apparié trié terminée."
+
+        # Renommer le fichier trié et indexé avec l'extension correcte
+        fichier_bam_paired_sorted_indexed="${fichier_bam_paired%.bam}.mapped_paired.sorted.bam"
+        mv "$fichier_bam_paired_trie" "$fichier_bam_paired_sorted_indexed"
+        mv "$fichier_bam_paired_trie.bai" "$fichier_bam_paired_sorted_indexed.bai"
+        echo "Le fichier BAM trié et indexé a été renommé en $fichier_bam_paired_sorted_indexed."
+
+        # Copier les fichiers BAM, les fichiers BAM appariés triés, les indices et les statistiques vers l'espace personnel
+        cp "$fichier_bam" "$BASE_MAPPED/"
+        cp "$fichier_stats" "$BASE_STATS/"
+        
+        cp "$fichier_bam_paired_sorted_indexed" "$BASE_PAIRED/"
+        cp "$fichier_bam_paired_sorted_indexed.bai" "$BASE_PAIRED/"  # Copier l'index BAM apparié trié (.bai)
+        cp "$fichier_stats_paired" "$BASE_PAIRED/"
+    fi
+done
+
+# Supprimer les fichiers temporaires dans le répertoire scratch une fois le travail terminé
+rm -rf "$SCRATCH_DIR"
+
+echo "Traitement terminé. Les résultats sont dans $BASE_MAPPED, $BASE_SORTED, et $BASE_PAIRED."
